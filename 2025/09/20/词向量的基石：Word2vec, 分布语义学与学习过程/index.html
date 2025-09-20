@@ -28,21 +28,21 @@
   <meta name="author" content="zl1bks">
   <meta name="keywords" content="">
   
-    <meta name="description" content="以后可以在这里写博客了!!!这是好的">
+    <meta name="description" content="词向量的基石：Word2vec, 分布语义学与学习过程本文档整理了关于词向量学习的基础理论，涵盖了Word2vec的核心思想、工作流程、数学原理，以及背后的语义学思想和学习方法。 1. Word2vec 核心思想与工作流程Word2vec的目标是为词汇表中的每一个词，学习到一个能够代表其语义的向量。其核心思想基于分布假说（Distributional Hypothesis）：一个词的意义是由它所在">
 <meta property="og:type" content="article">
-<meta property="og:title" content="可以开始写博客了">
-<meta property="og:url" content="http://zl1bks.github.io/2025/04/26/%E5%8F%AF%E4%BB%A5%E5%BC%80%E5%A7%8B%E5%86%99%E5%8D%9A%E5%AE%A2%E4%BA%86/index.html">
+<meta property="og:title" content="词向量的基石：Word2vec, 分布语义学与学习过程">
+<meta property="og:url" content="http://zl1bks.github.io/2025/09/20/%E8%AF%8D%E5%90%91%E9%87%8F%E7%9A%84%E5%9F%BA%E7%9F%B3%EF%BC%9AWord2vec,%20%E5%88%86%E5%B8%83%E8%AF%AD%E4%B9%89%E5%AD%A6%E4%B8%8E%E5%AD%A6%E4%B9%A0%E8%BF%87%E7%A8%8B/index.html">
 <meta property="og:site_name" content="zl1bks">
-<meta property="og:description" content="以后可以在这里写博客了!!!这是好的">
+<meta property="og:description" content="词向量的基石：Word2vec, 分布语义学与学习过程本文档整理了关于词向量学习的基础理论，涵盖了Word2vec的核心思想、工作流程、数学原理，以及背后的语义学思想和学习方法。 1. Word2vec 核心思想与工作流程Word2vec的目标是为词汇表中的每一个词，学习到一个能够代表其语义的向量。其核心思想基于分布假说（Distributional Hypothesis）：一个词的意义是由它所在">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-04-26T15:56:47.000Z">
-<meta property="article:modified_time" content="2025-04-26T17:18:53.802Z">
+<meta property="article:published_time" content="2025-09-20T15:15:13.000Z">
+<meta property="article:modified_time" content="2025-09-20T16:07:15.473Z">
 <meta property="article:author" content="zl1bks">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>可以开始写博客了 - zl1bks</title>
+  <title>词向量的基石：Word2vec, 分布语义学与学习过程 - zl1bks</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -245,7 +245,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="可以开始写博客了"></span>
+            <span id="subtitle" data-typed-text="词向量的基石：Word2vec, 分布语义学与学习过程"></span>
           
         </div>
 
@@ -256,8 +256,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-04-26 23:56" pubdate>
-          2025年4月26日 晚上
+        <time datetime="2025-09-20 23:15" pubdate>
+          2025年9月20日 晚上
         </time>
       </span>
     
@@ -268,7 +268,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          15 字
+          1.7k 字
         
       </span>
     
@@ -279,7 +279,7 @@
         
         
         
-          1 分钟
+          15 分钟
         
       </span>
     
@@ -316,12 +316,65 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">可以开始写博客了</h1>
+            <h1 id="seo-header">词向量的基石：Word2vec, 分布语义学与学习过程</h1>
             
             
               <div class="markdown-body">
                 
-                <p>以后可以在这里写博客了!!!<br>这是好的</p>
+                <h1 id="词向量的基石：Word2vec-分布语义学与学习过程"><a href="#词向量的基石：Word2vec-分布语义学与学习过程" class="headerlink" title="词向量的基石：Word2vec, 分布语义学与学习过程"></a>词向量的基石：Word2vec, 分布语义学与学习过程</h1><p>本文档整理了关于词向量学习的基础理论，涵盖了Word2vec的核心思想、工作流程、数学原理，以及背后的语义学思想和学习方法。</p>
+<h2 id="1-Word2vec-核心思想与工作流程"><a href="#1-Word2vec-核心思想与工作流程" class="headerlink" title="1. Word2vec 核心思想与工作流程"></a>1. Word2vec 核心思想与工作流程</h2><p>Word2vec的目标是为词汇表中的每一个词，学习到一个<strong>能够代表其语义的向量</strong>。其核心思想基于<strong>分布假说（Distributional Hypothesis）</strong>：一个词的意义是由它所在的上下文决定的。</p>
+<h3 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h3><ol>
+<li><strong>前提</strong>：拥有海量的文本数据（语料库）。</li>
+<li><strong>表示</strong>：为词汇表里的每个词随机初始化一个向量。</li>
+<li><strong>方法</strong>：通过一个“滑动窗口”来扫描整个文本。窗口中心的词是**中心词 (center word, c)<strong>，窗口里周围的词是</strong>上下文词 (context words, o)**。</li>
+<li><strong>核心任务</strong>：模型的核心任务就是<strong>预测</strong>。具体来说，就是给定一个中心词 <em>c</em>，它周围出现上下文词 <em>o</em> 的概率有多大？这个概率是通过计算 <em>c</em> 和 <em>o</em> 两个词向量的<strong>相似度</strong>（通常是点积）来决定的。</li>
+<li><strong>学习过程</strong>：通过梯度下降算法，不断地、迭代地进行优化。如果模型预测对了，就调整向量让它们更相似；如果预测错了，就让它们互相远离。这个过程在整个语料库上重复亿万次后，最终的词向量就蕴含了丰富的语义信息。</li>
+</ol>
+<h3 id="Skip-gram-模型"><a href="#Skip-gram-模型" class="headerlink" title="Skip-gram 模型"></a>Skip-gram 模型</h3><p>这是Word2vec的一种主要架构，其任务是：<strong>给定中心词，预测其上下文词</strong>。例如，对于文本<code>... problems turning into banking crises as ...</code>，如果中心词是<code>into</code>，窗口大小为2，那么模型的任务就是给定<code>into</code>，去预测<code>problems</code>, <code>turning</code>, <code>banking</code>, <code>crises</code>这几个词。</p>
+<h2 id="2-Word2vec-的数学原理"><a href="#2-Word2vec-的数学原理" class="headerlink" title="2. Word2vec 的数学原理"></a>2. Word2vec 的数学原理</h2><p>Word2vec将上述思想转化为了一个可以被计算机优化求解的数学问题，其核心是定义一个**目标函数 (Objective Function)**。</p>
+<ol>
+<li><p><strong>似然函数 <code>L(θ)</code><strong>：首先，我们定义一个似然函数，它代表了“我们当前的这套词向量（参数<code>θ</code>），能多好地预测出我们语料库里真实的上下文关系？”。这个函数是把语料库中“在每一个位置上，成功预测出其所有真实上下文词”的概率</strong>全部乘起来</strong>。我们的目标是<strong>最大化</strong>这个似然函数。</p>
+</li>
+<li><p><strong>目标函数 <code>J(θ)</code><strong>：最大化似然函数在计算上非常困难。因此，通过取对数、取负号、取平均三个步骤，将其转化为一个等价的、更容易处理的</strong>平均负对数似然</strong>，也就是我们最终要优化的<strong>损失函数 <code>J(θ)</code><strong>。我们的新目标是</strong>最小化</strong>这个<code>J(θ)</code>。</p>
+</li>
+</ol>
+<h3 id="概率的计算：Softmax函数"><a href="#概率的计算：Softmax函数" class="headerlink" title="概率的计算：Softmax函数"></a>概率的计算：Softmax函数</h3><p>模型预测上下文词的概率 <code>P(o|c)</code> 是通过 <strong>Softmax 函数</strong> 计算的。其核心是利用<strong>点积</strong>来衡量词向量的相似度。</p>
+<ul>
+<li><strong>分子</strong>：计算中心词 <code>c</code> 的向量 <code>v_c</code> 和目标上下文词 <code>o</code> 的向量 <code>u_o</code> 的点积，然后取指数 <code>exp(u_o^T v_c)</code>。这个结果代表了这对词的匹配程度。</li>
+<li><strong>分母</strong>：计算中心词 <code>c</code> 与<strong>词汇表中所有词</strong>的点积，取指数后求和 <code>∑ exp(u_w^T v_c)</code>。这是一个归一化项，确保所有概率加起来为1。</li>
+</ul>
+<p><strong>计算瓶颈</strong>：这个分母的计算量极其巨大，因此Word2vec提出了<strong>负采样 (Negative Sampling)</strong> 和 <strong>分层Softmax (Hierarchical Softmax)</strong> 等优化算法来近似这个计算，从而大大提高了训练效率。</p>
+<h2 id="3-学习方法：随机梯度下降-SGD"><a href="#3-学习方法：随机梯度下降-SGD" class="headerlink" title="3. 学习方法：随机梯度下降 (SGD)"></a>3. 学习方法：随机梯度下降 (SGD)</h2><ul>
+<li><strong>问题</strong>：标准的梯度下降（批量梯度下降）需要计算损失函数在<strong>整个数据集</strong>上的梯度，对于大型语料库来说，计算量大到不可行。</li>
+<li><strong>解决方案 (SGD)<strong>：不再遍历所有数据，而是</strong>重复地</strong>从语料库中<strong>随机抽取一个样本</strong>（在Word2vec中就是一个“窗口”），然后<strong>只根据这一个样本</strong>来估算梯度，并立即更新模型参数。</li>
+<li><strong>Mini-Batch SGD</strong>：这是目前深度学习中最常用的方法。它在纯粹的SGD（用1个样本）和批量梯度下降（用全部样本）之间取了个折中，每次使用一小批（mini-batch）数据（如32、64个样本）来计算梯度。这既保证了训练的稳定性，又能利用现代硬件的并行计算能力，实现最高效率。</li>
+</ul>
+<hr>
+<h2 id="Brainstorm-Q-A-语义、向量与空间"><a href="#Brainstorm-Q-A-语义、向量与空间" class="headerlink" title="Brainstorm Q&amp;A: 语义、向量与空间"></a>Brainstorm Q&amp;A: 语义、向量与空间</h2><blockquote>
+<p><strong>问：分布语义学 (Distributional Semantics) 和 指称语义学 (Denotational Semantics) 有什么区别？</strong></p>
+</blockquote>
+<p><strong>答：</strong></p>
+<ul>
+<li><strong>分布语义学</strong>：核心思想是“观其伴，知其义”。词的意义由其<strong>上下文</strong>决定。这是现代NLP词向量的理论基石，是数据驱动的、经验主义的，擅长捕捉词汇间的<strong>相似性和关联性</strong>。</li>
+<li><strong>指称语义学</strong>：源于逻辑学，认为词的意义在于其与<strong>外部世界的指代关系</strong>。它关注的是句子的<strong>真值</strong>，是逻辑驱动的、理性主义的，擅长进行精确的逻辑推理。</li>
+</ul>
+<blockquote>
+<p><strong>问：高维空间中，一个点可以离各种各样的事物都很近，怎么理解？</strong></p>
+</blockquote>
+<p><strong>答：</strong> 这是高维空间一个非常反直觉的特性，也是“维度灾难”的一种体现。一个点可以与许多其他点都保持“相对较近”的距离，<strong>即使这些点彼此之间相距甚远</strong>。这是因为“近”的贡献可以来自<strong>不同的维度子集</strong>。</p>
+<ul>
+<li><strong>一个比喻</strong>：一个“多面手”（中心点），他在“编程”维度上与“程序员”近，在“烹饪”维度上与“厨师”近。虽然他与这两位专家都有一定的相似性，但“程序员”和“厨师”这两个点本身在空间中是完全不相关的。</li>
+</ul>
+<blockquote>
+<p><strong>问：也就是说一个词向量可以与其多义的近义词相近？</strong></p>
+</blockquote>
+<p><strong>答：</strong> 完全正确！这正是对<strong>静态词向量（如Word2Vec）</strong>核心特性与局限性的绝佳概括。一个多义词（如“bank”）的静态词向量，是在其所有上下文（金融、地理等）的“平均化”或“混合”中训练出来的，因此它的向量会同时与金融相关的词（如“money”）和地理相关的词（如“river”）都保持较近的距离。</p>
+<ul>
+<li><strong>局限</strong>：这导致静态词向量无法解决<strong>词义消歧</strong>的问题。</li>
+<li><strong>演进</strong>：<strong>语境化词向量（如BERT, GPT）</strong>解决了这个问题。它会根据词所在的具体语境，动态地生成一个只代表当前含义的、完全不同的向量。</li>
+</ul>
+<hr>
+<p><em>整理自: WordNet：历久弥新, 课程计划：词向量与神经网络, 参数矩阵、梯度下降、秩</em></p>
 
                 
               </div>
@@ -340,7 +393,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%97%A5%E5%B8%B8/" class="category-chain-item">日常</a>
+  <a href="/categories/AI%E6%95%B4%E7%90%86%E7%9A%84%E5%AF%B9%E8%AF%9D%E7%AC%94%E8%AE%B0/" class="category-chain-item">AI整理的对话笔记</a>
   
   
 
@@ -360,8 +413,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>可以开始写博客了</div>
-      <div>http://zl1bks.github.io/2025/04/26/可以开始写博客了/</div>
+      <div>词向量的基石：Word2vec, 分布语义学与学习过程</div>
+      <div>http://zl1bks.github.io/2025/09/20/词向量的基石：Word2vec, 分布语义学与学习过程/</div>
     </div>
     <div class="license-meta">
       
@@ -373,7 +426,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年4月26日</div>
+          <div>2025年9月20日</div>
         </div>
       
       
@@ -405,9 +458,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/04/27/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/" title="工厂方法">
+                      <a href="/2025/09/20/Transformer%E4%B8%AD%E7%9A%84%E4%BD%8D%E7%BD%AE%E7%BC%96%E7%A0%81%E6%BC%94%E8%BF%9B%EF%BC%9A%E4%BB%8E%E7%BB%9D%E5%AF%B9%E5%88%B0%E6%97%8B%E8%BD%AC(RoPE)/" title="Transformer中的位置编码演进：从绝对到旋转(RoPE)">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">工厂方法</span>
+                        <span class="hidden-mobile">Transformer中的位置编码演进：从绝对到旋转(RoPE)</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -415,8 +468,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/04/26/%E7%A5%9E%E7%A7%98%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0/" title="神秘测试文章">
-                        <span class="hidden-mobile">神秘测试文章</span>
+                      <a href="/2025/09/20/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%9F%B3%EF%BC%9A%E6%A2%AF%E5%BA%A6%E3%80%81%E4%BC%A0%E6%92%AD%E4%B8%8E%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/" title="神经网络基石：梯度、传播与激活函数">
+                        <span class="hidden-mobile">神经网络基石：梯度、传播与激活函数</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

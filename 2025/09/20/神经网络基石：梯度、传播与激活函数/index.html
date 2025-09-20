@@ -28,21 +28,21 @@
   <meta name="author" content="zl1bks">
   <meta name="keywords" content="">
   
-    <meta name="description" content="以后可以在这里写博客了!!!这是好的">
+    <meta name="description" content="神经网络基石：梯度、传播与激活函数本文档整理了关于神经网络如何“学习”的几个最核心、最基础的概念，包括前向&#x2F;反向传播、梯度消失&#x2F;爆炸问题，以及ReLU激活函数的关键作用，并包含了相关的深入问答。 1. 神经网络的学习过程：一个四步循环想象教一个机器人射箭，整个学习过程可以分为四步：  **猜测 (前向传播)**：机器人根据当前姿势，射出一箭。 **评估 (计算损失)**：你看靶">
 <meta property="og:type" content="article">
-<meta property="og:title" content="可以开始写博客了">
-<meta property="og:url" content="http://zl1bks.github.io/2025/04/26/%E5%8F%AF%E4%BB%A5%E5%BC%80%E5%A7%8B%E5%86%99%E5%8D%9A%E5%AE%A2%E4%BA%86/index.html">
+<meta property="og:title" content="神经网络基石：梯度、传播与激活函数">
+<meta property="og:url" content="http://zl1bks.github.io/2025/09/20/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%9F%B3%EF%BC%9A%E6%A2%AF%E5%BA%A6%E3%80%81%E4%BC%A0%E6%92%AD%E4%B8%8E%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/index.html">
 <meta property="og:site_name" content="zl1bks">
-<meta property="og:description" content="以后可以在这里写博客了!!!这是好的">
+<meta property="og:description" content="神经网络基石：梯度、传播与激活函数本文档整理了关于神经网络如何“学习”的几个最核心、最基础的概念，包括前向&#x2F;反向传播、梯度消失&#x2F;爆炸问题，以及ReLU激活函数的关键作用，并包含了相关的深入问答。 1. 神经网络的学习过程：一个四步循环想象教一个机器人射箭，整个学习过程可以分为四步：  **猜测 (前向传播)**：机器人根据当前姿势，射出一箭。 **评估 (计算损失)**：你看靶">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-04-26T15:56:47.000Z">
-<meta property="article:modified_time" content="2025-04-26T17:18:53.802Z">
+<meta property="article:published_time" content="2025-09-20T15:14:26.000Z">
+<meta property="article:modified_time" content="2025-09-20T16:07:15.473Z">
 <meta property="article:author" content="zl1bks">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>可以开始写博客了 - zl1bks</title>
+  <title>神经网络基石：梯度、传播与激活函数 - zl1bks</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -245,7 +245,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="可以开始写博客了"></span>
+            <span id="subtitle" data-typed-text="神经网络基石：梯度、传播与激活函数"></span>
           
         </div>
 
@@ -256,8 +256,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-04-26 23:56" pubdate>
-          2025年4月26日 晚上
+        <time datetime="2025-09-20 23:14" pubdate>
+          2025年9月20日 晚上
         </time>
       </span>
     
@@ -268,7 +268,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          15 字
+          1.6k 字
         
       </span>
     
@@ -279,7 +279,7 @@
         
         
         
-          1 分钟
+          14 分钟
         
       </span>
     
@@ -316,12 +316,105 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">可以开始写博客了</h1>
+            <h1 id="seo-header">神经网络基石：梯度、传播与激活函数</h1>
             
             
               <div class="markdown-body">
                 
-                <p>以后可以在这里写博客了!!!<br>这是好的</p>
+                <h1 id="神经网络基石：梯度、传播与激活函数"><a href="#神经网络基石：梯度、传播与激活函数" class="headerlink" title="神经网络基石：梯度、传播与激活函数"></a>神经网络基石：梯度、传播与激活函数</h1><p>本文档整理了关于神经网络如何“学习”的几个最核心、最基础的概念，包括前向&#x2F;反向传播、梯度消失&#x2F;爆炸问题，以及ReLU激活函数的关键作用，并包含了相关的深入问答。</p>
+<h2 id="1-神经网络的学习过程：一个四步循环"><a href="#1-神经网络的学习过程：一个四步循环" class="headerlink" title="1. 神经网络的学习过程：一个四步循环"></a>1. 神经网络的学习过程：一个四步循环</h2><p>想象教一个机器人射箭，整个学习过程可以分为四步：</p>
+<ol>
+<li>**猜测 (前向传播)**：机器人根据当前姿势，射出一箭。</li>
+<li>**评估 (计算损失)**：你看靶子，告诉它射偏了多少。</li>
+<li>**学习 (反向传播 &amp; 更新)**：你根据偏差，指导它如何调整姿势和力度。</li>
+<li>**指导可能遇到的问题 (梯度问题)**：你的指导声音可能太小（听不见）或太大（变成噪音）。</li>
+</ol>
+<h3 id="a-前向传播-Forward-Propagation"><a href="#a-前向传播-Forward-Propagation" class="headerlink" title="a. 前向传播 (Forward Propagation)"></a>a. 前向传播 (Forward Propagation)</h3><p>这是神经网络进行<strong>预测或推断</strong>的过程。数据从输入层开始，逐层向前流动，直到输出层得到最终结果。</p>
+<ul>
+<li><strong>流程</strong>：在每一层，输入数据经过“加权求和”与“激活函数”的处理，然后将结果传递给下一层。</li>
+<li><strong>核心</strong>：这是一个纯计算过程，不涉及任何学习，只是利用当前参数“算”出一个答案。</li>
+</ul>
+<h3 id="b-反向传播-Backpropagation"><a href="#b-反向传播-Backpropagation" class="headerlink" title="b. 反向传播 (Backpropagation)"></a>b. 反向传播 (Backpropagation)</h3><p>这是神经网络的<strong>核心学习机制</strong>。在计算出预测结果与真实目标之间的差距（<strong>损失&#x2F;误差</strong>）后，反向传播算法会<strong>从后向前</strong>，计算出网络中每个参数（权重和偏置）对这个最终误差的“贡献”或“责任”有多大。</p>
+<ul>
+<li><strong>核心</strong>：它本身<strong>不更新</strong>权重，而是高效地<strong>计算出</strong>应该如何更新的“指导信号”，即**梯度 (gradient)**。梯度指明了能让损失函数下降最快的调整方向。</li>
+</ul>
+<h2 id="2-核心挑战：梯度消失与梯度爆炸"><a href="#2-核心挑战：梯度消失与梯度爆炸" class="headerlink" title="2. 核心挑战：梯度消失与梯度爆炸"></a>2. 核心挑战：梯度消失与梯度爆炸</h2><p>在深层网络中，通过反向传播计算的梯度（“指导信号”）在层层传递时，其大小会因<strong>连乘效应</strong>而发生剧烈变化，导致两种严重问题。</p>
+<table>
+<thead>
+<tr>
+<th align="left">特性</th>
+<th align="left">梯度消失 (Vanishing Gradients)</th>
+<th align="left">梯度爆炸 (Exploding Gradients)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>现象</strong></td>
+<td align="left">梯度值变得<strong>极其微小</strong>，接近于 0</td>
+<td align="left">梯度值变得<strong>极其巨大</strong>，超出数值表示范围</td>
+</tr>
+<tr>
+<td align="left"><strong>后果</strong></td>
+<td align="left">前面网络层的权重<strong>几乎不更新</strong>，学习停滞</td>
+<td align="left">权重更新<strong>步子太大</strong>，导致训练不稳定、发散，损失变<code>NaN</code></td>
+</tr>
+<tr>
+<td align="left"><strong>直观比喻</strong></td>
+<td align="left">指导信号太弱，弱到<strong>听不见</strong>，模型学不动</td>
+<td align="left">指导信号太强，强到像<strong>噪音</strong>，模型被带偏甚至崩溃</td>
+</tr>
+<tr>
+<td align="left"><strong>直接原因</strong></td>
+<td align="left">连乘了很多<strong>小于 1</strong> 的数</td>
+<td align="left">连乘了很多<strong>大于 1</strong> 的数</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="Brainstorm-Q-A-深入理解梯度问题与ReLU"><a href="#Brainstorm-Q-A-深入理解梯度问题与ReLU" class="headerlink" title="Brainstorm Q&amp;A: 深入理解梯度问题与ReLU"></a>Brainstorm Q&amp;A: 深入理解梯度问题与ReLU</h2><blockquote>
+<p><strong>问：梯度爆炸和梯度消失是冲突的吧？</strong></p>
+</blockquote>
+<p><strong>答：</strong> 是的，从<strong>现象</strong>和<strong>后果</strong>上看，它们是<strong>完全冲突的、截然相反</strong>的两个问题。你<strong>不可能在同一时间、同一位置</strong>同时观察到梯度既爆炸又消失。</p>
+<p>然而，最关键的一点是：它们源自同一个根本原因——**深度网络反向传播中的“连乘效应” (Multiplicative Effect)**。</p>
+<ul>
+<li><strong>统一性</strong>：它们都暴露了同一个根本问题：<strong>在深层网络中，基于连乘的梯度计算本身是不稳定的</strong>。最终的结果完全取决于这条“传播路径”上数值的乘积，是趋向于0还是趋向于无穷。</li>
+</ul>
+<blockquote>
+<p><strong>问：但是为什么有时候会越乘越小然后消失，有时候会变大然后爆炸？这和模型的结构有关吗还是什么原因？</strong></p>
+</blockquote>
+<p><strong>答：</strong> 问得非常好！梯度会消失还是会爆炸，并不是一个随机事件，而是由几个关键因素共同决定的“可预测”的结果。这和<strong>模型的结构</strong>、<strong>激活函数的选择</strong>以及<strong>权重的初始状态</strong>这三大因素紧密相关。</p>
+<ol>
+<li><strong>激活函数的选择</strong>：<ul>
+<li><strong>Sigmoid&#x2F;Tanh</strong>：它们的导数大部分都小于1，是导致<strong>梯度消失</strong>的主要元凶。</li>
+<li><strong>ReLU</strong>：它的导数在正区间恒为1，从根本上缓解了梯度消失问题，将梯度的命运交给了权重。</li>
+</ul>
+</li>
+<li><strong>权重初始化</strong>：<ul>
+<li><strong>过大的权重</strong>：在连乘效应下倾向于导致<strong>梯度爆炸</strong>。</li>
+<li><strong>过小的权重</strong>：即使使用ReLU，也可能导致<strong>梯度消失</strong>。</li>
+<li><strong>解决方案</strong>：使用Xavier、He等智能初始化方法，让权重从一开始就处在合理范围。</li>
+</ul>
+</li>
+<li><strong>模型结构</strong>：<ul>
+<li><strong>网络深度</strong>：是连乘效应的“放大器”，网络越深，问题越容易出现。</li>
+<li><strong>RNN</strong>：由于在时间步上重复使用相同权重，是梯度问题的“重灾区”。</li>
+<li>**ResNet (残差网络)**：通过“跳跃连接”让梯度可以通过加法直接回传，是解决梯度消失的革命性结构。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p><strong>问：ReLU 为什么好？</strong></p>
+</blockquote>
+<p><strong>答：</strong> ReLU (Rectified Linear Unit, <code>f(x) = max(0, x)</code>) 之所以好，甚至可以说是<strong>引发现代深度学习革命的关键技术之一</strong>，主要是因为它以一种极其简单的方式，解决了前辈们（如 Sigmoid 和 Tanh）的几个致命缺陷。</p>
+<ol>
+<li><p><strong>解决了梯度消失问题 (核心贡献)<strong>：当输入大于0时，ReLU的导数恒为1。这意味着梯度在回传时可以</strong>原封不动地通过</strong>！它不会像 Sigmoid 那样被削弱，为梯度提供了一条“高速公路”，使得训练深度网络成为可能。</p>
+</li>
+<li><p>**计算速度极快 (Computational Efficiency)**：<code>max(0, x)</code> 操作远比Sigmoid&#x2F;Tanh涉及的指数运算快得多，显著加速了模型的训练和推理。</p>
+</li>
+<li><p>**引入了稀疏性 (Induces Sparsity)**：它会使一部分神经元的输出为0，让网络以稀疏的方式激活，这被认为有助于学习到更鲁棒、解耦的特征。</p>
+</li>
+</ol>
+<p><strong>ReLU的缺陷：“死亡ReLU问题”</strong><br>如果一个神经元的权重被更新到使其对所有输入都输出负值，那么它的梯度将永远是0，这个神经元就再也无法学习。为了解决这个问题，出现了很多变体，如 <strong>Leaky ReLU, PReLU, ELU, GELU, SwiGLU</strong> 等，它们在保留ReLU主要优势的同时，通过在负数区引入微小的梯度来防止神经元“死亡”。</p>
+<hr>
+<p><em>整理自: Einops For Tensor Operations</em></p>
 
                 
               </div>
@@ -340,7 +433,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%97%A5%E5%B8%B8/" class="category-chain-item">日常</a>
+  <a href="/categories/AI%E6%95%B4%E7%90%86%E7%9A%84%E5%AF%B9%E8%AF%9D%E7%AC%94%E8%AE%B0/" class="category-chain-item">AI整理的对话笔记</a>
   
   
 
@@ -360,8 +453,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>可以开始写博客了</div>
-      <div>http://zl1bks.github.io/2025/04/26/可以开始写博客了/</div>
+      <div>神经网络基石：梯度、传播与激活函数</div>
+      <div>http://zl1bks.github.io/2025/09/20/神经网络基石：梯度、传播与激活函数/</div>
     </div>
     <div class="license-meta">
       
@@ -373,7 +466,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年4月26日</div>
+          <div>2025年9月20日</div>
         </div>
       
       
@@ -405,9 +498,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/04/27/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/" title="工厂方法">
+                      <a href="/2025/09/20/%E8%AF%8D%E5%90%91%E9%87%8F%E7%9A%84%E5%9F%BA%E7%9F%B3%EF%BC%9AWord2vec,%20%E5%88%86%E5%B8%83%E8%AF%AD%E4%B9%89%E5%AD%A6%E4%B8%8E%E5%AD%A6%E4%B9%A0%E8%BF%87%E7%A8%8B/" title="词向量的基石：Word2vec, 分布语义学与学习过程">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">工厂方法</span>
+                        <span class="hidden-mobile">词向量的基石：Word2vec, 分布语义学与学习过程</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -415,8 +508,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/04/26/%E7%A5%9E%E7%A7%98%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0/" title="神秘测试文章">
-                        <span class="hidden-mobile">神秘测试文章</span>
+                      <a href="/2025/09/20/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E6%B7%B7%E5%90%88%E4%B8%93%E5%AE%B6%E6%A8%A1%E5%9E%8B(MoE)%E7%9A%84%E8%B7%AF%E7%94%B1%E4%B8%8E%E8%AE%AD%E7%BB%83/" title="深入理解混合专家模型(MoE)的路由与训练">
+                        <span class="hidden-mobile">深入理解混合专家模型(MoE)的路由与训练</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

@@ -28,21 +28,21 @@
   <meta name="author" content="zl1bks">
   <meta name="keywords" content="">
   
-    <meta name="description" content="以后可以在这里写博客了!!!这是好的">
+    <meta name="description" content="残差流的本质：Transformer的信息高速公路本文档整理了关于“残差流 (Residual Stream)”这一核心概念的深入讲解和探讨。理解残差流是理解现代深度神经网络（尤其是 Transformer）运作方式的钥匙。 1. 核心思想：像“审阅文档”一样处理信息，而不是“重写” 传统方式（没有残差流）：每一层网络都对输入信息进行一次彻底的“重写”。经过多层传递后，原始信息可能被严重扭曲或丢失">
 <meta property="og:type" content="article">
-<meta property="og:title" content="可以开始写博客了">
-<meta property="og:url" content="http://zl1bks.github.io/2025/04/26/%E5%8F%AF%E4%BB%A5%E5%BC%80%E5%A7%8B%E5%86%99%E5%8D%9A%E5%AE%A2%E4%BA%86/index.html">
+<meta property="og:title" content="残差流的本质">
+<meta property="og:url" content="http://zl1bks.github.io/2025/09/20/%E6%AE%8B%E5%B7%AE%E6%B5%81%E7%9A%84%E6%9C%AC%E8%B4%A8/index.html">
 <meta property="og:site_name" content="zl1bks">
-<meta property="og:description" content="以后可以在这里写博客了!!!这是好的">
+<meta property="og:description" content="残差流的本质：Transformer的信息高速公路本文档整理了关于“残差流 (Residual Stream)”这一核心概念的深入讲解和探讨。理解残差流是理解现代深度神经网络（尤其是 Transformer）运作方式的钥匙。 1. 核心思想：像“审阅文档”一样处理信息，而不是“重写” 传统方式（没有残差流）：每一层网络都对输入信息进行一次彻底的“重写”。经过多层传递后，原始信息可能被严重扭曲或丢失">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-04-26T15:56:47.000Z">
-<meta property="article:modified_time" content="2025-04-26T17:18:53.802Z">
+<meta property="article:published_time" content="2025-09-20T15:17:36.000Z">
+<meta property="article:modified_time" content="2025-09-20T16:07:15.473Z">
 <meta property="article:author" content="zl1bks">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>可以开始写博客了 - zl1bks</title>
+  <title>残差流的本质 - zl1bks</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -245,7 +245,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="可以开始写博客了"></span>
+            <span id="subtitle" data-typed-text="残差流的本质"></span>
           
         </div>
 
@@ -256,8 +256,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-04-26 23:56" pubdate>
-          2025年4月26日 晚上
+        <time datetime="2025-09-20 23:17" pubdate>
+          2025年9月20日 晚上
         </time>
       </span>
     
@@ -268,7 +268,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          15 字
+          1.3k 字
         
       </span>
     
@@ -279,7 +279,7 @@
         
         
         
-          1 分钟
+          11 分钟
         
       </span>
     
@@ -316,12 +316,62 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">可以开始写博客了</h1>
+            <h1 id="seo-header">残差流的本质</h1>
             
             
               <div class="markdown-body">
                 
-                <p>以后可以在这里写博客了!!!<br>这是好的</p>
+                <h1 id="残差流的本质：Transformer的信息高速公路"><a href="#残差流的本质：Transformer的信息高速公路" class="headerlink" title="残差流的本质：Transformer的信息高速公路"></a>残差流的本质：Transformer的信息高速公路</h1><p>本文档整理了关于“残差流 (Residual Stream)”这一核心概念的深入讲解和探讨。理解残差流是理解现代深度神经网络（尤其是 Transformer）运作方式的钥匙。</p>
+<h2 id="1-核心思想：像“审阅文档”一样处理信息，而不是“重写”"><a href="#1-核心思想：像“审阅文档”一样处理信息，而不是“重写”" class="headerlink" title="1. 核心思想：像“审阅文档”一样处理信息，而不是“重写”"></a>1. 核心思想：像“审阅文档”一样处理信息，而不是“重写”</h2><ul>
+<li><strong>传统方式（没有残差流）</strong>：每一层网络都对输入信息进行一次彻底的“重写”。经过多层传递后，原始信息可能被严重扭曲或丢失，这是“梯度消失”和“信息瓶颈”的根源。</li>
+<li><strong>残差流方式</strong>：信息在一个“<strong>信息主干道</strong>”（即残差流）上传递。每一层网络（如注意力层）只能<strong>阅读</strong>主干道上的信息，然后提交它的“<strong>修改建议</strong>”（即<strong>残差, Residual</strong>）。这个“修改建议”随后被<strong>添加</strong>回主干道中，形成更新后的版本。<ul>
+<li><strong>公式</strong>: <code>Output = Input + F(Input)</code></li>
+<li><code>Input</code>: 来自主干道的原始信息。</li>
+<li><code>F(Input)</code>: 当前网络层计算出的“修改建议”或“新知识”。</li>
+<li><code>+</code>: 残差连接的核心，将新知识“添加”回主干道。</li>
+</ul>
+</li>
+</ul>
+<p>通过这种方式，残差流确保了原始信息和后续添加的所有信息能够顺畅地、无损地贯穿整个网络。</p>
+<h2 id="2-为什么残差流如此重要？"><a href="#2-为什么残差流如此重要？" class="headerlink" title="2. 为什么残差流如此重要？"></a>2. 为什么残差流如此重要？</h2><ol>
+<li><p><strong>解决了梯度消失问题</strong>：梯度可以通过残差连接的“快捷通道”直接跳跃式地向后传播，完全不受中间层复杂计算的影响。这就像一条<strong>梯度的“高速公路”</strong>，确保了梯度能够顺畅地传遍整个深度网络，使得训练数百甚至数千层的网络成为可能。</p>
+</li>
+<li><p><strong>让网络更容易学习</strong>：如果某一网络层暂时没什么用，它只需要学会输出一个<strong>零向量</strong>（<code>F(Input) = 0</code>）即可，因为 <code>Output = Input + 0</code>，信息就原封不动地流过去了。让网络学会输出0，比学会完美复制（恒等映射 <code>F(Input) = Input</code>）要容易得多。</p>
+</li>
+<li><p><strong>实现跨层信息通信</strong>：由于信息是累加的，模型中靠后的层可以轻易地访问到前面所有层写入到残差流中的信息。这使得模型可以组合利用不同处理阶段的信息，进行更复杂的计算和推理。</p>
+</li>
+</ol>
+<hr>
+<h2 id="Brainstorm-Q-A-残差流的通路"><a href="#Brainstorm-Q-A-残差流的通路" class="headerlink" title="Brainstorm Q&amp;A: 残差流的通路"></a>Brainstorm Q&amp;A: 残差流的通路</h2><blockquote>
+<p><strong>问：没有通路可以直接不做任何操作达到最后吧？</strong></p>
+</blockquote>
+<p><strong>答：</strong> 你提出了一个极为精准且深刻的观点！完全正确。<strong>并不存在一条“完全不做任何操作”的通路能直达最后。</strong></p>
+<p>“信息高速公路”的比喻是为了帮助理解其核心思想——<strong>即信息主体被完整保留</strong>。但为了技术上的严谨性，我们必须认识到，即使在这条主干道上，信息流也必须经过几个<strong>强制的、虽然简单但至关重要</strong>的操作站。</p>
+<p>在一个标准的 Transformer 块（Pre-Norm 结构）中，信息流至少要经过以下两个不可跳过的操作：</p>
+<ol>
+<li><p><strong>加法操作 (<code>+</code>) 本身就是一个操作</strong></p>
+<ul>
+<li><strong>信息被改变了</strong>：即使“修改建议” <code>F(Input)</code> 的值非常小，但只要它不是严格的零，<code>Input</code> 经过加法后，其向量值就已经发生了改变。</li>
+<li><strong>信息在融合</strong>：这个加法操作是信息融合点。在这里，来自主干道的“原始信息”和来自旁路计算的“新知识”被合并成一个新的、更丰富的隐藏状态。</li>
+</ul>
+</li>
+<li><p><strong>层归一化 (Layer Normalization)</strong></p>
+<ul>
+<li>在现代 Transformer 架构中（特别是 Pre-Norm 结构），<strong>在将信息送入任何复杂计算模块（如自注意力或MoE层）之前，都必须先经过一次层归一化。</strong></li>
+<li>这可以被看作是一种<strong>数据“清洁”或“校准”</strong>的过程，它会调整隐藏状态向量中的数值，以稳定模型的训练过程。</li>
+</ul>
+</li>
+</ol>
+<h3 id="结论：信息流-vs-梯度流"><a href="#结论：信息流-vs-梯度流" class="headerlink" title="结论：信息流 vs. 梯度流"></a>结论：信息流 vs. 梯度流</h3><p>这里需要做一个关键区分：</p>
+<ul>
+<li><p><strong>对于信息流（前向传播）</strong>：你的理解是100%正确的。信息<strong>必须</strong>在每个块中与该块的计算结果进行交互（通过加法），并且通常还要经过层归一化。它总是在被“编辑”，无法原封不动地到达最后。</p>
+</li>
+<li><p><strong>对于梯度流（反向传播）</strong>：这才是残差连接真正的魔力所在。在求导时，加法操作的梯度是1。这意味着梯度可以<strong>几乎无损地</strong>通过 <code>Input</code> 这条路径直接向后传递，<strong>绕过了</strong> <code>F(Input)</code> 那个复杂计算路径可能带来的梯度衰减。<strong>所以，“高速公路”或“直连通路”这个比喻，对于“梯度”的传递来说，比对“信息”的传递更为贴切。</strong></p>
+</li>
+</ul>
+<p><strong>总结你的洞察</strong>：残差流并不是一条让信息可以“什么都不做就躺着通过”的通道，而是一条确保信息主体不丢失、同时又能被稳定地、增量式地进行编辑和丰富的核心通路。</p>
+<hr>
+<p><em>整理自: WordNet：历久弥新</em></p>
 
                 
               </div>
@@ -340,7 +390,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%97%A5%E5%B8%B8/" class="category-chain-item">日常</a>
+  <a href="/categories/AI%E6%95%B4%E7%90%86%E7%9A%84%E5%AF%B9%E8%AF%9D%E7%AC%94%E8%AE%B0/" class="category-chain-item">AI整理的对话笔记</a>
   
   
 
@@ -360,8 +410,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>可以开始写博客了</div>
-      <div>http://zl1bks.github.io/2025/04/26/可以开始写博客了/</div>
+      <div>残差流的本质</div>
+      <div>http://zl1bks.github.io/2025/09/20/残差流的本质/</div>
     </div>
     <div class="license-meta">
       
@@ -373,7 +423,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年4月26日</div>
+          <div>2025年9月20日</div>
         </div>
       
       
@@ -405,9 +455,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/04/27/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/" title="工厂方法">
+                      <a href="/2025/09/20/PyTorch%E4%B8%AD%E7%9A%84%E9%AB%98%E6%95%88%E5%BC%A0%E9%87%8F%E6%93%8D%E4%BD%9C%E5%BA%93Einops/" title="PyTorch中的高效张量操作库Einops">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">工厂方法</span>
+                        <span class="hidden-mobile">PyTorch中的高效张量操作库Einops</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -415,8 +465,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/04/26/%E7%A5%9E%E7%A7%98%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0/" title="神秘测试文章">
-                        <span class="hidden-mobile">神秘测试文章</span>
+                      <a href="/2025/09/20/Transformer%E5%BD%92%E4%B8%80%E5%8C%96%E7%AD%96%E7%95%A5%EF%BC%9APre-Norm,%20Post-Norm%E4%B8%8E%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7/" title="Transformer归一化策略：Pre-Norm, Post-Norm与高级技巧">
+                        <span class="hidden-mobile">Transformer归一化策略：Pre-Norm, Post-Norm与高级技巧</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

@@ -28,21 +28,21 @@
   <meta name="author" content="zl1bks">
   <meta name="keywords" content="">
   
-    <meta name="description" content="以后可以在这里写博客了!!!这是好的">
+    <meta name="description" content="PyTorch中的高效张量操作库Einopseinops 是一个功能强大且灵活的库，用于以可读和可靠的方式操作张量。它的名字来源于 “Einstein Operations”（爱因斯坦操作），其设计的灵感来自于爱因斯坦求和约定。einops 并非 PyTorch 的一部分，而是一个独立的库，但它与 PyTorch、NumPy, TensorFlow, JAX 等深度学习框架无缝集成。 使用 ein">
 <meta property="og:type" content="article">
-<meta property="og:title" content="可以开始写博客了">
-<meta property="og:url" content="http://zl1bks.github.io/2025/04/26/%E5%8F%AF%E4%BB%A5%E5%BC%80%E5%A7%8B%E5%86%99%E5%8D%9A%E5%AE%A2%E4%BA%86/index.html">
+<meta property="og:title" content="PyTorch中的高效张量操作库Einops">
+<meta property="og:url" content="http://zl1bks.github.io/2025/09/20/PyTorch%E4%B8%AD%E7%9A%84%E9%AB%98%E6%95%88%E5%BC%A0%E9%87%8F%E6%93%8D%E4%BD%9C%E5%BA%93Einops/index.html">
 <meta property="og:site_name" content="zl1bks">
-<meta property="og:description" content="以后可以在这里写博客了!!!这是好的">
+<meta property="og:description" content="PyTorch中的高效张量操作库Einopseinops 是一个功能强大且灵活的库，用于以可读和可靠的方式操作张量。它的名字来源于 “Einstein Operations”（爱因斯坦操作），其设计的灵感来自于爱因斯坦求和约定。einops 并非 PyTorch 的一部分，而是一个独立的库，但它与 PyTorch、NumPy, TensorFlow, JAX 等深度学习框架无缝集成。 使用 ein">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-04-26T15:56:47.000Z">
-<meta property="article:modified_time" content="2025-04-26T17:18:53.802Z">
+<meta property="article:published_time" content="2025-09-20T15:18:13.000Z">
+<meta property="article:modified_time" content="2025-09-20T16:07:15.473Z">
 <meta property="article:author" content="zl1bks">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>可以开始写博客了 - zl1bks</title>
+  <title>PyTorch中的高效张量操作库Einops - zl1bks</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -245,7 +245,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="可以开始写博客了"></span>
+            <span id="subtitle" data-typed-text="PyTorch中的高效张量操作库Einops"></span>
           
         </div>
 
@@ -256,8 +256,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-04-26 23:56" pubdate>
-          2025年4月26日 晚上
+        <time datetime="2025-09-20 23:18" pubdate>
+          2025年9月20日 晚上
         </time>
       </span>
     
@@ -268,7 +268,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          15 字
+          925 字
         
       </span>
     
@@ -279,7 +279,7 @@
         
         
         
-          1 分钟
+          8 分钟
         
       </span>
     
@@ -316,12 +316,53 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">可以开始写博客了</h1>
+            <h1 id="seo-header">PyTorch中的高效张量操作库Einops</h1>
             
             
               <div class="markdown-body">
                 
-                <p>以后可以在这里写博客了!!!<br>这是好的</p>
+                <h1 id="PyTorch中的高效张量操作库Einops"><a href="#PyTorch中的高效张量操作库Einops" class="headerlink" title="PyTorch中的高效张量操作库Einops"></a>PyTorch中的高效张量操作库Einops</h1><p><code>einops</code> 是一个功能强大且灵活的库，用于以可读和可靠的方式操作张量。它的名字来源于 “Einstein Operations”（爱因斯坦操作），其设计的灵感来自于爱因斯坦求和约定。<code>einops</code> 并非 PyTorch 的一部分，而是一个独立的库，但它与 PyTorch、NumPy, TensorFlow, JAX 等深度学习框架无缝集成。</p>
+<p>使用 <code>einops</code> 的主要目的是让张量操作（如变形、重排、聚合）变得更加直观和不容易出错。</p>
+<h3 id="einops-的核心操作"><a href="#einops-的核心操作" class="headerlink" title="einops 的核心操作"></a><code>einops</code> 的核心操作</h3><p><code>einops</code> 主要围绕三个核心函数展开：<code>rearrange</code>、<code>reduce</code> 和 <code>repeat</code>。</p>
+<h4 id="1-rearrange-重排和变形"><a href="#1-rearrange-重排和变形" class="headerlink" title="1. rearrange - 重排和变形"></a>1. <code>rearrange</code> - 重排和变形</h4><p>这是 <code>einops</code> 中最常用的操作，用于改变张量的维度顺序和形状。它通过一种非常直观的字符串模式来定义操作。</p>
+<p><strong>语法</strong>: <code>rearrange(tensor, &#39;pattern_from -&gt; pattern_to&#39;)</code></p>
+<p><strong>示例</strong>:</p>
+<ul>
+<li><p><strong>维度换位</strong>: 假设你有一个形状为 <code>(batch, channels, height, width)</code> 的图像张量，并想将其转换为 <code>(batch, height, width, channels)</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">from</span> einops <span class="hljs-keyword">import</span> rearrange<br><br>images = torch.randn(<span class="hljs-number">10</span>, <span class="hljs-number">3</span>, <span class="hljs-number">32</span>, <span class="hljs-number">32</span>) <span class="hljs-comment"># (batch, channels, height, width)</span><br><span class="hljs-comment"># 使用 rearrange 进行维度重排</span><br>rearranged_images = rearrange(images, <span class="hljs-string">&#x27;b c h w -&gt; b h w c&#x27;</span>)<br><span class="hljs-built_in">print</span>(rearranged_images.shape)<br><span class="hljs-comment"># 输出: torch.Size([10, 32, 32, 3])</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>合并维度</strong>: 将高度和宽度合并为一个维度。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 将 h 和 w 合并</span><br>merged_dims = rearrange(images, <span class="hljs-string">&#x27;b c h w -&gt; b c (h w)&#x27;</span>)<br><span class="hljs-built_in">print</span>(merged_dims.shape)<br><span class="hljs-comment"># 输出: torch.Size([10, 3, 1024])</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-reduce-聚合操作"><a href="#2-reduce-聚合操作" class="headerlink" title="2. reduce - 聚合操作"></a>2. <code>reduce</code> - 聚合操作</h4><p><code>reduce</code> 函数结合了重排和降维（聚合）操作，例如求和、取平均值或最大值。</p>
+<p><strong>语法</strong>: <code>reduce(tensor, &#39;pattern_from -&gt; pattern_to&#39;, &#39;reduction_op&#39;)</code></p>
+<p><strong>示例</strong>:</p>
+<ul>
+<li><p><strong>全局平均池化</strong>: 对每个通道的高度和宽度维度进行平均池化。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> einops <span class="hljs-keyword">import</span> reduce<br><br><span class="hljs-comment"># 假设 images 是 (10, 3, 32, 32) 的张量</span><br><span class="hljs-comment"># 对 h 和 w 维度求平均值</span><br>global_avg_pool = reduce(images, <span class="hljs-string">&#x27;b c h w -&gt; b c&#x27;</span>, <span class="hljs-string">&#x27;mean&#x27;</span>)<br><span class="hljs-built_in">print</span>(global_avg_pool.shape)<br><span class="hljs-comment"># 输出: torch.Size([10, 3])</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="3-repeat-复制和扩展维度"><a href="#3-repeat-复制和扩展维度" class="headerlink" title="3. repeat - 复制和扩展维度"></a>3. <code>repeat</code> - 复制和扩展维度</h4><p><code>repeat</code> 用于在指定维度上复制张量的数据。</p>
+<p><strong>语法</strong>: <code>repeat(tensor, &#39;pattern_from -&gt; pattern_to&#39;, **axis_lengths)</code></p>
+<p><strong>示例</strong>:</p>
+<ul>
+<li><p><strong>扩展维度</strong>: 将一个张量在新的维度上进行复制。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">from</span> einops <span class="hljs-keyword">import</span> repeat<br><br>single_image = torch.randn(<span class="hljs-number">3</span>, <span class="hljs-number">32</span>, <span class="hljs-number">32</span>) <span class="hljs-comment"># (channels, height, width)</span><br><br><span class="hljs-comment"># 在新的 batch 维度上复制 10 次</span><br>batch_of_images = repeat(single_image, <span class="hljs-string">&#x27;c h w -&gt; b c h w&#x27;</span>, b=<span class="hljs-number">10</span>)<br><span class="hljs-built_in">print</span>(batch_of_images.shape)<br><span class="hljs-comment"># 输出: torch.Size([10, 3, 32, 32])</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="为什么在-PyTorch-中使用-einops？"><a href="#为什么在-PyTorch-中使用-einops？" class="headerlink" title="为什么在 PyTorch 中使用 einops？"></a>为什么在 PyTorch 中使用 <code>einops</code>？</h3><p><code>einops</code> 提供了许多优于传统 PyTorch 张量操作（如 <code>view</code>, <code>reshape</code>, <code>permute</code>, <code>transpose</code>）的优势：</p>
+<ul>
+<li><strong>可读性强</strong>: <code>einops</code> 的字符串模式清晰地描述了输入和输出的维度关系，使得代码更易于理解和维护。</li>
+<li><strong>减少错误</strong>: 在使用 <code>view</code> 或 <code>reshape</code> 时，如果维度顺序不正确，可能会导致数据混乱而不报错。<code>einops</code> 的显式模式有助于在操作不匹配时立即引发错误。</li>
+<li><strong>代码简洁</strong>: 复杂的多步张量操作，如 “unflattening”、转置和 “flattening” 的组合，通常可以通过一行 <code>einops</code> 代码完成。</li>
+<li><strong>框架无关性</strong>: <code>einops</code> 的语法在不同的深度学习框架中保持一致，这使得代码的迁移和复用变得更加容易。</li>
+<li><strong>强大的灵活性</strong>: 它能够轻松实现复杂的张量操作，例如将图像分割成块 (patch)，这在 Vision Transformer 等模型中非常常见。</li>
+</ul>
+<h3 id="如何在-PyTorch-项目中集成-einops"><a href="#如何在-PyTorch-项目中集成-einops" class="headerlink" title="如何在 PyTorch 项目中集成 einops"></a>如何在 PyTorch 项目中集成 <code>einops</code></h3><p>首先，你需要安装 <code>einops</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install einops<br></code></pre></td></tr></table></figure>
+
+<p>然后，你可以像上面的例子一样，在你的 Python 脚本中导入并使用 <code>rearrange</code>, <code>reduce</code>, 和 <code>repeat</code>。<code>einops</code> 还可以与 <code>torch.nn.Module</code> 结合使用，创建自定义的神经网络层。</p>
+<p>总而言之，<code>einops</code> 是一个非常有用的工具，它可以显著提高 PyTorch 开发者的生产力和代码质量。通过提供一种更直观、更可靠的方式来处理张量操作，它让开发者可以更专注于模型架构和逻辑本身。</p>
+<hr>
+<p><em>整理自: Einops For Tensor Operations</em></p>
 
                 
               </div>
@@ -340,7 +381,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%97%A5%E5%B8%B8/" class="category-chain-item">日常</a>
+  <a href="/categories/AI%E6%95%B4%E7%90%86%E7%9A%84%E5%AF%B9%E8%AF%9D%E7%AC%94%E8%AE%B0/" class="category-chain-item">AI整理的对话笔记</a>
   
   
 
@@ -360,8 +401,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>可以开始写博客了</div>
-      <div>http://zl1bks.github.io/2025/04/26/可以开始写博客了/</div>
+      <div>PyTorch中的高效张量操作库Einops</div>
+      <div>http://zl1bks.github.io/2025/09/20/PyTorch中的高效张量操作库Einops/</div>
     </div>
     <div class="license-meta">
       
@@ -373,7 +414,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年4月26日</div>
+          <div>2025年9月20日</div>
         </div>
       
       
@@ -405,18 +446,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/04/27/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/" title="工厂方法">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">工厂方法</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/04/26/%E7%A5%9E%E7%A7%98%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0/" title="神秘测试文章">
-                        <span class="hidden-mobile">神秘测试文章</span>
+                      <a href="/2025/09/20/%E6%AE%8B%E5%B7%AE%E6%B5%81%E7%9A%84%E6%9C%AC%E8%B4%A8/" title="残差流的本质">
+                        <span class="hidden-mobile">残差流的本质</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

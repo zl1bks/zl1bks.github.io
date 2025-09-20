@@ -28,21 +28,21 @@
   <meta name="author" content="zl1bks">
   <meta name="keywords" content="">
   
-    <meta name="description" content="以后可以在这里写博客了!!!这是好的">
+    <meta name="description" content="Transformer中的位置编码演进：从绝对到旋转(RoPE)本文档整理了关于Transformer模型中位置编码（Positional Encoding）技术的演进过程，从最初的绝对位置编码，到相对位置编码，再到目前最主流的旋转位置编码（RoPE），并包含了对RoPE设计哲学的深入探讨。 1. 为什么需要位置编码？Transformer模型的核心是自注意力机制（Self-Attention）。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="可以开始写博客了">
-<meta property="og:url" content="http://zl1bks.github.io/2025/04/26/%E5%8F%AF%E4%BB%A5%E5%BC%80%E5%A7%8B%E5%86%99%E5%8D%9A%E5%AE%A2%E4%BA%86/index.html">
+<meta property="og:title" content="Transformer中的位置编码演进：从绝对到旋转(RoPE)">
+<meta property="og:url" content="http://zl1bks.github.io/2025/09/20/Transformer%E4%B8%AD%E7%9A%84%E4%BD%8D%E7%BD%AE%E7%BC%96%E7%A0%81%E6%BC%94%E8%BF%9B%EF%BC%9A%E4%BB%8E%E7%BB%9D%E5%AF%B9%E5%88%B0%E6%97%8B%E8%BD%AC(RoPE)/index.html">
 <meta property="og:site_name" content="zl1bks">
-<meta property="og:description" content="以后可以在这里写博客了!!!这是好的">
+<meta property="og:description" content="Transformer中的位置编码演进：从绝对到旋转(RoPE)本文档整理了关于Transformer模型中位置编码（Positional Encoding）技术的演进过程，从最初的绝对位置编码，到相对位置编码，再到目前最主流的旋转位置编码（RoPE），并包含了对RoPE设计哲学的深入探讨。 1. 为什么需要位置编码？Transformer模型的核心是自注意力机制（Self-Attention）。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-04-26T15:56:47.000Z">
-<meta property="article:modified_time" content="2025-04-26T17:18:53.802Z">
+<meta property="article:published_time" content="2025-09-20T15:15:55.000Z">
+<meta property="article:modified_time" content="2025-09-20T16:07:15.473Z">
 <meta property="article:author" content="zl1bks">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>可以开始写博客了 - zl1bks</title>
+  <title>Transformer中的位置编码演进：从绝对到旋转(RoPE) - zl1bks</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -245,7 +245,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="可以开始写博客了"></span>
+            <span id="subtitle" data-typed-text="Transformer中的位置编码演进：从绝对到旋转(RoPE)"></span>
           
         </div>
 
@@ -256,8 +256,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-04-26 23:56" pubdate>
-          2025年4月26日 晚上
+        <time datetime="2025-09-20 23:15" pubdate>
+          2025年9月20日 晚上
         </time>
       </span>
     
@@ -268,7 +268,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          15 字
+          1.4k 字
         
       </span>
     
@@ -279,7 +279,7 @@
         
         
         
-          1 分钟
+          12 分钟
         
       </span>
     
@@ -316,12 +316,64 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">可以开始写博客了</h1>
+            <h1 id="seo-header">Transformer中的位置编码演进：从绝对到旋转(RoPE)</h1>
             
             
               <div class="markdown-body">
                 
-                <p>以后可以在这里写博客了!!!<br>这是好的</p>
+                <h1 id="Transformer中的位置编码演进：从绝对到旋转-RoPE"><a href="#Transformer中的位置编码演进：从绝对到旋转-RoPE" class="headerlink" title="Transformer中的位置编码演进：从绝对到旋转(RoPE)"></a>Transformer中的位置编码演进：从绝对到旋转(RoPE)</h1><p>本文档整理了关于Transformer模型中位置编码（Positional Encoding）技术的演进过程，从最初的绝对位置编码，到相对位置编码，再到目前最主流的旋转位置编码（RoPE），并包含了对RoPE设计哲学的深入探讨。</p>
+<h2 id="1-为什么需要位置编码？"><a href="#1-为什么需要位置编码？" class="headerlink" title="1. 为什么需要位置编码？"></a>1. 为什么需要位置编码？</h2><p>Transformer模型的核心是自注意力机制（Self-Attention）。这个机制在计算时，会同等看待输入序列中的所有词元（token），它本身无法感知到词元的先后顺序。为了让模型理解序列顺序，我们必须人为地给模型注入位置信息，这就是位置编码的作用。</p>
+<h2 id="2-绝对位置编码-Absolute-Position-Encoding"><a href="#2-绝对位置编码-Absolute-Position-Encoding" class="headerlink" title="2. 绝对位置编码 (Absolute Position Encoding)"></a>2. 绝对位置编码 (Absolute Position Encoding)</h2><p><strong>核心思想</strong>：为序列中的每一个<strong>绝对位置</strong>（第1个、第2个、第3个…）分配一个独一无二的位置向量，然后将这个位置向量加到对应的词元嵌入（Token Embedding）上。</p>
+<ul>
+<li>**正弦&#x2F;余弦位置编码 (Sinusoidal)**：原始Transformer论文提出的方法。使用<code>sin</code>和<code>cos</code>函数生成固定的、无需训练的位置向量。理论上可外推到更长的序列。</li>
+<li>**可学习的绝对位置编码 (Learned)**：BERT、GPT系列早期使用的方法。创建一个可学习的位置嵌入矩阵，通过训练得到位置向量。优点是简单，缺点是外推性差，无法处理超过预设最大长度的序列。</li>
+</ul>
+<h2 id="3-相对位置编码-Relative-Position-Encoding"><a href="#3-相对位置编码-Relative-Position-Encoding" class="headerlink" title="3. 相对位置编码 (Relative Position Encoding)"></a>3. 相对位置编码 (Relative Position Encoding)</h2><p><strong>核心思想</strong>：模型不应该关心一个词的<strong>绝对位置</strong>，而应该更关心两个词之间的<strong>相对距离</strong>（例如，A词在B词左边3个位置）。</p>
+<ul>
+<li><strong>做法</strong>：它不再将位置信息加到词元嵌入上，而是在<strong>计算注意力分数时</strong>引入一个代表相对距离的“偏置项”（bias）。</li>
+<li><strong>优点</strong>：具有更好的泛化性和平移不变性，能更好地处理不同长度的序列。</li>
+<li><strong>代表模型</strong>：T5, Transformer-XL。</li>
+</ul>
+<h2 id="4-RoPE-Rotary-Position-Embedding-旋转位置编码"><a href="#4-RoPE-Rotary-Position-Embedding-旋转位置编码" class="headerlink" title="4. RoPE (Rotary Position Embedding, 旋转位置编码)"></a>4. RoPE (Rotary Position Embedding, 旋转位置编码)</h2><p>RoPE是目前大语言模型（如Llama系列、PaLM）中最主流、最成功的方案之一。它巧妙地<strong>结合了绝对位置和相对位置的思想</strong>。</p>
+<ul>
+<li><strong>核心思想</strong>：通过<strong>旋转</strong>词元嵌入向量来注入位置信息。</li>
+<li><strong>实现方式</strong>：它在计算注意力分数<strong>之前</strong>，对Query (Q) 和 Key (K) 向量进行旋转操作。旋转的角度由该词元的<strong>绝对位置</strong>决定。</li>
+<li><strong>数学魔术</strong>：最奇妙的地方在于，两个经过不同角度旋转的向量，它们的内积（点积）结果，<strong>只取决于它们之间的角度差</strong>。而这个角度差，正好就代表了它们的<strong>相对位置</strong>。</li>
+<li><strong>优点</strong>：<ol>
+<li><strong>极佳的性能和外推性</strong>：在保持高性能的同时，具有很好的长度外推能力。</li>
+<li><strong>实现优雅</strong>：它直接修改Q和K，而不需要改变注意力计算公式本身。</li>
+<li><strong>无需额外训练参数</strong>。</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h2 id="Brainstorm-Q-A-RoPE的设计哲学"><a href="#Brainstorm-Q-A-RoPE的设计哲学" class="headerlink" title="Brainstorm Q&amp;A: RoPE的设计哲学"></a>Brainstorm Q&amp;A: RoPE的设计哲学</h2><blockquote>
+<p><strong>问：RoPE的设计目标是什么？为什么说之前的方法不完美？</strong></p>
+</blockquote>
+<p><strong>答：</strong> RoPE的设计，源于一个“理想”的数学目标：<strong>一个好的位置编码方法，应该让注意力分数只依赖于词元之间的相对位置，而不是它们的绝对位置。</strong></p>
+<p>这个目标可以被抽象成一个数学公式：<code>⟨f(x, i), f(y, j)⟩ = g(x, y, i - j)</code></p>
+<ul>
+<li><code>f(x, i)</code> 是我们想设计的函数，它结合了词元<code>x</code>和其绝对位置<code>i</code>。</li>
+<li><code>⟨ , ⟩</code> 代表内积（注意力分数的核心计算）。</li>
+<li><code>g(x, y, i - j)</code> 代表最终结果只和词元本身以及它们的相对位置 <code>i-j</code> 有关。</li>
+</ul>
+<p>之前的方法不完美的原因：</p>
+<ul>
+<li><strong>正弦&#x2F;余弦编码</strong>：采用<strong>加法</strong> <code>v_x + PE_i</code>。其内积展开后会包含 <code>⟨v_x, PE_j⟩</code> 和 <code>⟨PE_i, v_y⟩</code> 这样的“交叉项”，导致结果中单独包含了绝对位置 <code>i</code> 或 <code>j</code>，不满足理想条件。</li>
+<li><strong>相对位置编码</strong>：它是在计算完内积后，再<strong>额外加上</strong>一个偏置项。这相当于在标准注意力计算上“打补丁”，虽然有效，但破坏了原始内积的简洁性和数学优雅性。</li>
+</ul>
+<p>RoPE通过<strong>旋转</strong>操作，完美地满足了这个理想公式，因为它利用了“旋转后向量的内积只取决于角度差”这一数学性质，从而在数学上更为优雅和自洽。</p>
+<blockquote>
+<p><strong>问：RoPE在代码中是如何实现的？</strong></p>
+</blockquote>
+<p><strong>答：</strong> RoPE的实现分为两步，发生在计算出Q和K向量之后，但在它们进行点积之前：</p>
+<ol>
+<li><strong>获取旋转矩阵</strong>：根据每个词元的绝对位置ID <code>position_ids</code>，通过一个预定义的<code>rotary_emb</code>模块，利用<code>sin</code>和<code>cos</code>函数计算出一系列用于旋转的<code>cos</code>和<code>sin</code>值。这些值构成了旋转操作所需的“旋转矩阵”。</li>
+<li><strong>应用旋转</strong>：调用一个<code>apply_rotary_pos_emb</code>函数，使用上一步生成的<code>cos</code>和<code>sin</code>值，分别对Q和K向量进行旋转操作。这个操作会就地修改Q和K向量，将位置信息“注入”其中。</li>
+</ol>
+<p>经过旋转后，新的Q和K向量就包含了各自的位置信息，可以直接用于后续标准的注意力分数计算。值得注意的是，<strong>Value (V) 向量不参与旋转</strong>，因为它只负责提供内容信息。</p>
+<hr>
+<p><em>整理自: WordNet：历久弥新</em></p>
 
                 
               </div>
@@ -340,7 +392,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%97%A5%E5%B8%B8/" class="category-chain-item">日常</a>
+  <a href="/categories/AI%E6%95%B4%E7%90%86%E7%9A%84%E5%AF%B9%E8%AF%9D%E7%AC%94%E8%AE%B0/" class="category-chain-item">AI整理的对话笔记</a>
   
   
 
@@ -360,8 +412,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>可以开始写博客了</div>
-      <div>http://zl1bks.github.io/2025/04/26/可以开始写博客了/</div>
+      <div>Transformer中的位置编码演进：从绝对到旋转(RoPE)</div>
+      <div>http://zl1bks.github.io/2025/09/20/Transformer中的位置编码演进：从绝对到旋转(RoPE)/</div>
     </div>
     <div class="license-meta">
       
@@ -373,7 +425,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年4月26日</div>
+          <div>2025年9月20日</div>
         </div>
       
       
@@ -405,9 +457,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/04/27/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/" title="工厂方法">
+                      <a href="/2025/09/20/Transformer%E5%BD%92%E4%B8%80%E5%8C%96%E7%AD%96%E7%95%A5%EF%BC%9APre-Norm,%20Post-Norm%E4%B8%8E%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7/" title="Transformer归一化策略：Pre-Norm, Post-Norm与高级技巧">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">工厂方法</span>
+                        <span class="hidden-mobile">Transformer归一化策略：Pre-Norm, Post-Norm与高级技巧</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -415,8 +467,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/04/26/%E7%A5%9E%E7%A7%98%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0/" title="神秘测试文章">
-                        <span class="hidden-mobile">神秘测试文章</span>
+                      <a href="/2025/09/20/%E8%AF%8D%E5%90%91%E9%87%8F%E7%9A%84%E5%9F%BA%E7%9F%B3%EF%BC%9AWord2vec,%20%E5%88%86%E5%B8%83%E8%AF%AD%E4%B9%89%E5%AD%A6%E4%B8%8E%E5%AD%A6%E4%B9%A0%E8%BF%87%E7%A8%8B/" title="词向量的基石：Word2vec, 分布语义学与学习过程">
+                        <span class="hidden-mobile">词向量的基石：Word2vec, 分布语义学与学习过程</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

@@ -28,21 +28,21 @@
   <meta name="author" content="zl1bks">
   <meta name="keywords" content="">
   
-    <meta name="description" content="以后可以在这里写博客了!!!这是好的">
+    <meta name="description" content="Transformer中的并行层架构本文档整理了关于Transformer架构的一种变体——“并行层”（Parallel Layers）的详细讨论，旨在解释其工作原理、优势以及实现方式。 核心思想：从串行到并行在一个标准的Transformer模块里，信息的处理是分步进行的，像流水线一样：首先经过注意力层（Attention Layer），然后其输出再经过前馈网络层（MLP Layer）。两者是串">
 <meta property="og:type" content="article">
-<meta property="og:title" content="可以开始写博客了">
-<meta property="og:url" content="http://zl1bks.github.io/2025/04/26/%E5%8F%AF%E4%BB%A5%E5%BC%80%E5%A7%8B%E5%86%99%E5%8D%9A%E5%AE%A2%E4%BA%86/index.html">
+<meta property="og:title" content="Transformer中的并行层架构">
+<meta property="og:url" content="http://zl1bks.github.io/2025/09/20/Transformer%E4%B8%AD%E7%9A%84%E5%B9%B6%E8%A1%8C%E5%B1%82%E6%9E%B6%E6%9E%84/index.html">
 <meta property="og:site_name" content="zl1bks">
-<meta property="og:description" content="以后可以在这里写博客了!!!这是好的">
+<meta property="og:description" content="Transformer中的并行层架构本文档整理了关于Transformer架构的一种变体——“并行层”（Parallel Layers）的详细讨论，旨在解释其工作原理、优势以及实现方式。 核心思想：从串行到并行在一个标准的Transformer模块里，信息的处理是分步进行的，像流水线一样：首先经过注意力层（Attention Layer），然后其输出再经过前馈网络层（MLP Layer）。两者是串">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-04-26T15:56:47.000Z">
-<meta property="article:modified_time" content="2025-04-26T17:18:53.802Z">
+<meta property="article:published_time" content="2025-09-20T15:11:38.000Z">
+<meta property="article:modified_time" content="2025-09-20T16:07:15.473Z">
 <meta property="article:author" content="zl1bks">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>可以开始写博客了 - zl1bks</title>
+  <title>Transformer中的并行层架构 - zl1bks</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -245,7 +245,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="可以开始写博客了"></span>
+            <span id="subtitle" data-typed-text="Transformer中的并行层架构"></span>
           
         </div>
 
@@ -256,8 +256,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-04-26 23:56" pubdate>
-          2025年4月26日 晚上
+        <time datetime="2025-09-20 23:11" pubdate>
+          2025年9月20日 晚上
         </time>
       </span>
     
@@ -268,7 +268,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          15 字
+          1.2k 字
         
       </span>
     
@@ -279,7 +279,7 @@
         
         
         
-          1 分钟
+          11 分钟
         
       </span>
     
@@ -316,12 +316,72 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">可以开始写博客了</h1>
+            <h1 id="seo-header">Transformer中的并行层架构</h1>
             
             
               <div class="markdown-body">
                 
-                <p>以后可以在这里写博客了!!!<br>这是好的</p>
+                <h1 id="Transformer中的并行层架构"><a href="#Transformer中的并行层架构" class="headerlink" title="Transformer中的并行层架构"></a>Transformer中的并行层架构</h1><p>本文档整理了关于Transformer架构的一种变体——“并行层”（Parallel Layers）的详细讨论，旨在解释其工作原理、优势以及实现方式。</p>
+<h2 id="核心思想：从串行到并行"><a href="#核心思想：从串行到并行" class="headerlink" title="核心思想：从串行到并行"></a>核心思想：从串行到并行</h2><p>在一个标准的Transformer模块里，信息的处理是分步进行的，像流水线一样：首先经过注意力层（Attention Layer），然后其输出再经过前馈网络层（MLP Layer）。两者是<strong>串行</strong>关系。</p>
+<p><strong>并行层 (Parallel Layers)</strong> 的核心思想是：<strong>不再让MLP层等待Attention层，而是让它们同时进行计算</strong>。</p>
+<ul>
+<li><strong>标准（串行）结构</strong>: <code>y = x + MLP(LayerNorm(x + Attention(LayerNorm(x))))</code></li>
+<li><strong>并行结构</strong>: <code>y = x + MLP(LayerNorm(x)) + Attention(LayerNorm(x))</code></li>
+</ul>
+<p>在这种新结构中，<code>MLP</code>和<code>Attention</code>的输入都是同一个值：<code>LayerNorm(x)</code>。它们之间不再有依赖关系，因此可以并行计算。</p>
+<h3 id="优势与权衡"><a href="#优势与权衡" class="headerlink" title="优势与权衡"></a>优势与权衡</h3><ul>
+<li><strong>显著提升训练速度</strong>：由于Attention和MLP可以并行计算，它们的输入矩阵乘法可以被“融合”（fuse）成一个单一的操作，从而更有效地利用硬件（如GPU）。这在大规模训练时，可以带来大约15%的速度提升。像PaLM、GPT-J和GPT-NeoX等模型都采用了这种设计来加速训练。</li>
+<li><strong>对模型精度的影响</strong>：<ul>
+<li>在较小模型规模（如80亿参数）上，这种并行结构会导致轻微的性能下降。</li>
+<li>但随着模型规模增大（如620亿参数），这种性能退化会消失。</li>
+<li>因此，研究人员推断，在更大规模上，并行层对模型质量没有负面影响。</li>
+</ul>
+</li>
+</ul>
+<p><strong>注意</strong>：正如课程中所提到的，模型架构的趋势总是在不断演进，这种并行层架构在最近可能已不再是最新模型的主流选择，但其设计思想对于理解模型优化依然重要。</p>
+<hr>
+<h2 id="Brainstorm-Q-A-并行层是如何做到的？"><a href="#Brainstorm-Q-A-并行层是如何做到的？" class="headerlink" title="Brainstorm Q&amp;A: 并行层是如何做到的？"></a>Brainstorm Q&amp;A: 并行层是如何做到的？</h2><blockquote>
+<p><strong>问：怎么做到的？</strong></p>
+</blockquote>
+<p><strong>答：</strong> 将串行计算改为并行计算，并实现“矩阵乘法融合”，主要通过以下三个步骤做到：</p>
+<ol>
+<li><strong>结构重组：消除计算依赖</strong></li>
+<li><strong>权重合并：将多个矩阵乘法融合成一个</strong></li>
+<li><strong>硬件并行：利用GPU的高效计算特性</strong></li>
+</ol>
+<h3 id="1-结构重组：消除计算依赖"><a href="#1-结构重组：消除计算依赖" class="headerlink" title="1. 结构重组：消除计算依赖"></a>1. 结构重组：消除计算依赖</h3><p>首先，通过修改计算公式，让<code>MLP</code>和<code>Attention</code>的输入都变成同一个值<code>LayerNorm(x)</code>，消除了两者之间的先后依赖关系，这是实现并行计算的理论基础。</p>
+<h3 id="2-权重合并：矩阵乘法融合的魔术"><a href="#2-权重合并：矩阵乘法融合的魔术" class="headerlink" title="2. 权重合并：矩阵乘法融合的魔术"></a>2. 权重合并：矩阵乘法融合的魔术</h3><p>这是实现15%速度提升的核心。在Transformer模块中，计算量最大的部分就是大规模的矩阵乘法（MatMul）。</p>
+<ul>
+<li><p>在<strong>自注意力 (Self-Attention)</strong> 机制中，第一步是将输入 <code>H</code> (即 <code>LayerNorm(x)</code>) 乘以一个大的权重矩阵 <code>W_qkv</code>，来生成查询（Q）、键（K）和值（V）三个向量。</p>
+<ul>
+<li>计算式：<code>QKV = H @ W_qkv</code></li>
+</ul>
+</li>
+<li><p>在<strong>MLP（前馈网络）</strong>层中，第一步也是将同一个输入 <code>H</code> 乘以一个权重矩阵 <code>W_mlp1</code>。</p>
+<ul>
+<li>计算式：<code>MLP_hidden = H @ W_mlp1</code></li>
+</ul>
+</li>
+</ul>
+<p>在并行结构中，由于它们的输入 <code>H</code> 完全相同，我们可以把它们“融合”（Fuse）起来。</p>
+<p><strong>融合方法：</strong></p>
+<p>我们将两个权重矩阵 <code>W_qkv</code> 和 <code>W_mlp1</code> 沿其输出维度进行<strong>拼接（Concatenate）</strong>，形成一个更大、更宽的单一权重矩阵 <code>W_fused</code>。</p>
+<ul>
+<li><code>W_fused</code> &#x3D; Concat(<code>W_qkv</code>, <code>W_mlp1</code>)</li>
+</ul>
+<p>现在，我们只需要执行<strong>一次</strong>矩阵乘法，就能同时得到Attention和MLP所需要的结果：</p>
+<ul>
+<li><code>Fused_output = H @ W_fused</code></li>
+</ul>
+<p>这个 <code>Fused_output</code> 是一个很宽的矩阵，它的前半部分包含了Q、K、V的结果，后半部分则是MLP的中间层结果。计算完成后，程序只需将这个大矩阵按列切分（Split）开，分别送入后续的Attention和MLP计算流程即可。</p>
+<h3 id="3-硬件并行：为什么融合后更快？"><a href="#3-硬件并行：为什么融合后更快？" class="headerlink" title="3. 硬件并行：为什么融合后更快？"></a>3. 硬件并行：为什么融合后更快？</h3><p>将两个小矩阵乘法融合成一个大矩阵乘法，之所以能提速，是因为它更符合GPU等现代并行处理器的“胃口”：</p>
+<ul>
+<li><strong>减少计算核（Kernel）启动开销</strong>：每次调用一次矩阵乘法，都需要CPU向GPU发起一次“计算核启动”指令，这本身有一定的时间开销。将两次启动合并为一次，就减少了这部分开销。</li>
+<li><strong>提升计算密度和硬件利用率</strong>：GPU拥有数千个计算核心，擅长处理大规模、规整的并行任务。一个大的矩阵乘法可以更好地“喂饱”所有核心，让它们同时工作，从而最大化硬件的利用率。相比之下，两个连续的小矩阵乘法可能会因为数据依赖和调度问题导致部分核心闲置。</li>
+</ul>
+<p>因此，通过结构重组和权重合并，并行层架构将计算任务变得更加“GPU友好”，从而实现了显著的训练加速。</p>
+<hr>
+<p><em>整理自: Transformer 并行层解析</em></p>
 
                 
               </div>
@@ -340,7 +400,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%97%A5%E5%B8%B8/" class="category-chain-item">日常</a>
+  <a href="/categories/AI%E6%95%B4%E7%90%86%E7%9A%84%E5%AF%B9%E8%AF%9D%E7%AC%94%E8%AE%B0/" class="category-chain-item">AI整理的对话笔记</a>
   
   
 
@@ -360,8 +420,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>可以开始写博客了</div>
-      <div>http://zl1bks.github.io/2025/04/26/可以开始写博客了/</div>
+      <div>Transformer中的并行层架构</div>
+      <div>http://zl1bks.github.io/2025/09/20/Transformer中的并行层架构/</div>
     </div>
     <div class="license-meta">
       
@@ -373,7 +433,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年4月26日</div>
+          <div>2025年9月20日</div>
         </div>
       
       
@@ -405,9 +465,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/04/27/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/" title="工厂方法">
+                      <a href="/2025/09/20/Transformer%20FFN%E8%AE%BE%E8%AE%A1%EF%BC%9A%E4%B8%BA%E4%BD%95%E7%A7%BB%E9%99%A4%E5%81%8F%E7%BD%AE%E9%A1%B9/" title="Transformer FFN设计：为何移除偏置项">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">工厂方法</span>
+                        <span class="hidden-mobile">Transformer FFN设计：为何移除偏置项</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -415,8 +475,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/04/26/%E7%A5%9E%E7%A7%98%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0/" title="神秘测试文章">
-                        <span class="hidden-mobile">神秘测试文章</span>
+                      <a href="/2025/09/20/%E6%B7%B1%E5%BA%A6%E5%8F%AF%E5%88%86%E7%A6%BB%E5%8D%B7%E7%A7%AF%E4%B8%8ELoRA%E7%9A%84%E5%93%B2%E5%AD%A6%E6%80%9D%E8%BE%A8/" title="深度可分离卷积与LoRA的哲学思辨">
+                        <span class="hidden-mobile">深度可分离卷积与LoRA的哲学思辨</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
